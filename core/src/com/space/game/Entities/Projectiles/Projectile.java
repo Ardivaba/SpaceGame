@@ -12,6 +12,7 @@ public class Projectile extends Entity
 {
     public float velocity = 700f;
     public float damage = 1f;
+    public boolean direction;
     
     protected Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/laser.wav"));
     
@@ -24,6 +25,8 @@ public class Projectile extends Entity
     
     public void setDirection(boolean upwardVelocity)
     {
+        direction = upwardVelocity;
+        
         if(!upwardVelocity)
         {
             velocity *= -1;

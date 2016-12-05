@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Kasutaja on 05.12.2016.
+ * Manager class for entitites
+ * Somewhat obselete now, most of the entities are instantiated directly, entities add themselves
+ * to the entitites list which is terrible.
+ * 
+ * Managed class became obselete because i couldn't figure out elegant way to use Java generics.
  */
 public class EntityManager
 {
@@ -43,7 +47,8 @@ public class EntityManager
         return ship;
     }
 
-    public static Projectile spawnBullet(Vector2 position, boolean upwardDirection)
+    // Spawns a projectile, upwardDirection specifies which direction projectile flies
+    public static Projectile spawnProjectile(Vector2 position, boolean upwardDirection)
     {
         Projectile bullet = new Projectile();
         bullet.init(position);
@@ -52,6 +57,7 @@ public class EntityManager
         return bullet;
     }
     
+    // Remove entity from the list, should get garbage collected as besides player object entities list is only persistent reference to enities
     public static void removeEntity(Entity entity)
     {
         entities.remove(entity);

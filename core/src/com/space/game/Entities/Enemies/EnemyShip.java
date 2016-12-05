@@ -34,7 +34,7 @@ public class EnemyShip extends BaseShip {
         this.timesShot++;
         float bulletPosX = this.position.x + this.texture.getWidth() / 2;
         float bulletPosY = this.position.y + this.texture.getHeight() / 2 - 100;
-        Projectile bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), false);
+        Projectile bullet = EntityManager.spawnProjectile(new Vector2(bulletPosX, bulletPosY), false);
     }
 
     public void collision(Entity otherEntity)

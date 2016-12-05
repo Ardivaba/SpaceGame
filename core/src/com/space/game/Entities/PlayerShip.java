@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Projectiles.Projectile;
-import com.space.game.SpaceGame;
 
 /**
  * Created by Kasutaja on 05.12.2016.
@@ -44,7 +43,7 @@ public class PlayerShip extends BaseShip
     {
         float bulletPosX = this.position.x + this.texture.getWidth() / 2;
         float bulletPosY = this.position.y + this.texture.getHeight() / 2 + 50;
-        Projectile bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), true);
+        Projectile bullet = EntityManager.spawnProjectile(new Vector2(bulletPosX, bulletPosY), true);
     }
     
     @Override

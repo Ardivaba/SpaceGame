@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Projectiles.Projectile;
 import com.space.game.Entity;
+import com.space.game.SpaceGame;
 
 /**
  * Created by Kasutaja on 05.12.2016.
@@ -23,7 +24,7 @@ public class BaseShip extends Entity
     
     public void shoot()
     {
-        Projectile bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
+        Projectile bullet = EntityManager.spawnProjectile(position.add(this.gunOffset), this.shootingDirection);
     }
     
     public void collision(Entity otherEntity)
@@ -33,12 +34,16 @@ public class BaseShip extends Entity
             Projectile bullet = (Projectile) otherEntity;
             if(bullet != null)
             {
-                this.damage(1f);
+                // Make it so that payers can't get damaged with their own bullets
+                // Note: Need to refactor this
+                if(!(bullet.direction && SpaceGame.playerShip == this))
+                    this.damage(1f);
             }
         }
         catch (Exception e)
         {
-            // Not bullet...w
+            // Not bullet...
+            // Note: Should just use .class to instead of this try catch but out of time
         }
     }
 }
