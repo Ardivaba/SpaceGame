@@ -1,6 +1,7 @@
 package com.space.game.Entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.space.game.Entity;
 
@@ -9,8 +10,17 @@ import com.space.game.Entity;
  */
 public class Bullet extends Entity
 {
-    public float velocity = 500f;
-    public float damage = 0.01f;
+    public float velocity = 700f;
+    public float damage = 2.5f;
+    
+    protected Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/laser.wav"));
+    
+    public Bullet()
+    {
+        super();
+        
+        sound.play();
+    }
     
     public void setDirection(boolean upwardVelocity)
     {
@@ -29,5 +39,11 @@ public class Bullet extends Entity
     public void update(float deltaTime)
     {
         position.y += velocity * deltaTime;
+    }
+    
+    @Override
+    public void collision(Entity otherEntity)
+    {
+        this.destroy();
     }
 }

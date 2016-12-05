@@ -2,6 +2,7 @@ package com.space.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entity;
@@ -26,7 +27,7 @@ public class BaseShip extends Entity
         Bullet bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
     }
     
-    public void collides(Entity otherEntity)
+    public void collision(Entity otherEntity)
     {
         try
         {

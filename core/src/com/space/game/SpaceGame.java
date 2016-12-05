@@ -2,15 +2,15 @@ package com.space.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.space.game.Entities.EnemyShip;
 import com.space.game.Entities.EntityManager;
 import com.space.game.Entities.GameLogic;
@@ -30,7 +30,7 @@ public class SpaceGame extends ApplicationAdapter
 	PlayerShip playerShip;
 	GameLogic game;
 	
-	public final int ZOOM = 35;
+	public final int ZOOM = 60;
 	
 	@Override
 	public void create ()
@@ -61,11 +61,13 @@ public class SpaceGame extends ApplicationAdapter
 	{
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		camera = new OrthographicCamera(300, 300 * (h / w));
-		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+		camera = new OrthographicCamera();
 		camera.zoom = ZOOM;
+		camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
+		camera.update();
+		
 	}
-
+	
 	@Override
 	public void render ()
 	{
@@ -87,8 +89,9 @@ public class SpaceGame extends ApplicationAdapter
 		checkCollisions(tempList); 
 
 		// Draw background and start batch draw
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
 
 		// Draw all entities
@@ -114,7 +117,7 @@ public class SpaceGame extends ApplicationAdapter
 
 				if(entity.body.overlaps(otherEntity.body))
 				{
-					entity.collides(otherEntity);
+					entity.collision(otherEntity);
 				}
 			}
 		}

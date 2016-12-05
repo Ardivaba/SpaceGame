@@ -1,7 +1,9 @@
 package com.space.game.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entity;
+import com.space.game.SpaceGame;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,8 +13,11 @@ import java.util.Random;
  */
 public class GameLogic 
 {
+    private Random random;
+    
     public void GameLogic()
     {
+        random = new Random();
     }
     
     public void update(float deltaTime)
@@ -30,7 +35,7 @@ public class GameLogic
         Random random = new Random();
 
         EnemyShip ship = new EnemyShip();
-        ship.init(new Vector2(100, 300));
+        ship.init(new Vector2(random.nextFloat() * Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 2 ));
         
         System.out.println("Spawning enemy ship...");
     }

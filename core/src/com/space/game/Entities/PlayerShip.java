@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entity;
+import com.space.game.SpaceGame;
 
 /**
  * Created by Kasutaja on 05.12.2016.
@@ -33,6 +34,7 @@ public class PlayerShip extends BaseShip
     public void update(float deltaTime)
     {
         handlePlayerInput(deltaTime);
+        System.out.println(position.x + " " + position.y);
     }
     
     private void handlePlayerInput(float deltaTime)
@@ -61,5 +63,13 @@ public class PlayerShip extends BaseShip
         {
             this.shoot();
         }
+        
+        validatePosition();
+    }
+    
+    private void validatePosition()
+    {
+        if(position.x > Gdx.graphics.getWidth() + this.body.getWidth())
+            position.x = Gdx.graphics.getWidth() + this.body.getWidth();
     }
 }

@@ -43,13 +43,16 @@ public class Entity extends Actor{
     public void preUpdate()
     {
         body.setPosition(position.x, position.y);
+        
+        if(position.y < -Gdx.graphics.getHeight())
+            this.destroy();
     }
 
     public void update(float deltaTime) 
     {
     }
     
-    public void collides(Entity otherEntity)
+    public void collision(Entity otherEntity)
     {
         
     }
