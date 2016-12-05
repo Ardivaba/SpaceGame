@@ -115,4 +115,13 @@ public class PlayerShip extends BaseShip
         this.texture = playerDamagedTexture;
         hitSound.play();
     }
+    
+    @Override
+    public void destroy()
+    {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/gameOver.ogg"));
+        sound.play();
+        
+        super.destroy();
+    }
 }
