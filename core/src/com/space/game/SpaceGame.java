@@ -3,6 +3,7 @@ package com.space.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -44,6 +45,8 @@ public class SpaceGame extends ApplicationAdapter
 	public static boolean gameStarted = false;
 	boolean firstUpdate = true;
 	
+	public static Sound backgroundSound;
+	
 	@Override
 	public void create ()
 	{
@@ -60,6 +63,8 @@ public class SpaceGame extends ApplicationAdapter
 		overlayBatch = new SpriteBatch();
 		str = "Press [Enter] to start game";
 		font = new BitmapFont();
+
+		backgroundSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/music.mp3"));
 
 		spawnActors();
 	}
@@ -137,6 +142,7 @@ public class SpaceGame extends ApplicationAdapter
 		{
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
 			{
+				backgroundSound.loop(0.5f);
 				EntityManager.destroyAllEntities();
 				gameStarted = true;
 				spawnActors();
@@ -149,6 +155,7 @@ public class SpaceGame extends ApplicationAdapter
 		if(playerShip.health <= 0.0f)
 		{
 			gameStarted = false;
+			backgroundSound.stop();
 		}
 
 		for(float i = 0; i < playerShip.health; i++)

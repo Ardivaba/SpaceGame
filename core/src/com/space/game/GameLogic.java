@@ -1,6 +1,7 @@
 package com.space.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Enemies.EnemyShip;
 import com.space.game.Entities.Enemies.FollowingEnemy;
@@ -26,6 +27,8 @@ public class GameLogic
     public boolean running = true;
     
     private ArrayList<Class> enemyList = new ArrayList<Class>();
+    
+    private static Sound backgroundSound;
     
     public void GameLogic()
     {

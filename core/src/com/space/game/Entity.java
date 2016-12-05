@@ -12,7 +12,8 @@ import com.space.game.Entities.EntityManager;
 import java.util.ArrayList;
 
 /**
- * Created by Ardi Vaba on 05.12.2016.
+ * Base class for all entities, they have Rectangle for collision detection, Texture for rendering and Vector2 for position
+ * and health for damaging...
  */
 public class Entity extends Actor{
     protected Texture texture;
