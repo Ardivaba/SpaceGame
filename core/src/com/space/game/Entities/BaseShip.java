@@ -64,6 +64,6 @@ public class BaseShip extends Entity
         super.destroy();
         
         // Play notification sound on death
-        this.shipDestroyedSound.play();
+        // this.shipDestroyedSound.play();
     }
 }
