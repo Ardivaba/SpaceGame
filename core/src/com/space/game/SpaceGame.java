@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.space.game.Entities.EntityManager;
+import com.space.game.Entities.PlayerShip;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,10 @@ public class SpaceGame extends ApplicationAdapter
 
 	protected Box2DDebugRenderer physicsDebugRenderer;
 	public static World world;
-
-	private Stage stage;
+	
+	PlayerShip playerShip;
+	
+	public final int ZOOM = 35;
 	
 	@Override
 	public void create ()
@@ -42,18 +45,23 @@ public class SpaceGame extends ApplicationAdapter
 	{
 		EntityManager.spawnBaseShip(new Vector2(100, 300));
 		
-		EntityManager.spawnPlayerShip(new Vector2(0, 0));
+		playerShip = EntityManager.spawnPlayerShip(new Vector2(0, 0));
 	}
 	
 	private void createCamera()
 	{
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 );
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		camera = new OrthographicCamera(30, 30 * (h / w));
+		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+		camera.zoom = ZOOM;
 	}
 
 	@Override
 	public void render ()
 	{
+		camera.update();
+		
 		// Update entities
 		ArrayList<Entity> tempList = new ArrayList<Entity>();
 		tempList.addAll(EntityManager.entities);
@@ -87,13 +95,10 @@ public class SpaceGame extends ApplicationAdapter
 		{
 			entity.render(batch);
 		}
-		
-		camera.zoom -= 0.1f;
-		camera.position.add(1.0f, 1.0f, 1.0f);
-		camera.update();
 
 		// End batch draw
 		batch.end();
+		batch.setProjectionMatrix(camera.combined);
 	}
 
 	@Override
@@ -108,5 +113,9 @@ public class SpaceGame extends ApplicationAdapter
 	{
 		batch.dispose();
 		img.dispose();
+	}
+
+	@Override
+	public void resume() {
 	}
 }

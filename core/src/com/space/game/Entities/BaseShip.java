@@ -28,10 +28,17 @@ public class BaseShip extends Entity
     
     public void collides(Entity otherEntity)
     {
-        Bullet bullet = (Bullet) otherEntity;
-        if(bullet != null)
+        try
         {
-            this.damage(bullet.damage);
+            Bullet bullet = (Bullet) otherEntity;
+            if(bullet != null)
+            {
+                this.damage(bullet.damage);
+            }
+        }
+        catch (Exception e)
+        {
+            // Not bullet...w
         }
     }
 }
