@@ -62,8 +62,8 @@ public class BaseShip extends Entity
     public void destroy()
     {
         super.destroy();
-        
-        // Play notification sound on death
-        // this.shipDestroyedSound.play();
+
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/kill.ogg"));
+        sound.play();   
     }
 }

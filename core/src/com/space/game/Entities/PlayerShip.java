@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Projectiles.Projectile;
 
 /**
- * Created by Kasutaja on 05.12.2016.
+ * Player ship logic
  */
 public class PlayerShip extends BaseShip 
 {
@@ -94,6 +94,7 @@ public class PlayerShip extends BaseShip
     
     private void validatePosition()
     {
+        // Basically clamp player position to borders
         if(position.x < -800)
             position.x = -800;
         

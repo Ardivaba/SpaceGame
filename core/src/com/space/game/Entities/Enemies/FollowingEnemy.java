@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.space.game.SpaceGame;
 
 /**
- * Created by Kasutaja on 05.12.2016.
+ * Enemy that follows player ship around on X axis
  */
 public class FollowingEnemy extends SimpleMovingEnemy
 {
