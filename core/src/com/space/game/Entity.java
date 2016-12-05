@@ -25,6 +25,12 @@ public class Entity extends Actor{
     
     public float health = 1.0f;
     
+    public Entity()
+    {
+        // Bad code...but helps me save time
+        EntityManager.entities.add(this);
+    }
+    
     public void init(Vector2 position) 
     {
         ArrayList<Entity> list = new ArrayList<Entity>();

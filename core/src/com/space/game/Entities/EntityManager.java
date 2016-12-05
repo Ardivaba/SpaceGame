@@ -30,8 +30,7 @@ public class EntityManager
     {
         BaseShip ship = new BaseShip();
         ship.init(position);
-
-        EntityManager.entities.add(ship);
+        
         return ship;
     }
     
@@ -39,8 +38,7 @@ public class EntityManager
     {
         PlayerShip ship = new PlayerShip();
         ship.init(position);
-
-        EntityManager.entities.add(ship);
+        
         return ship;
     }
 
@@ -49,14 +47,26 @@ public class EntityManager
         Bullet bullet = new Bullet();
         bullet.init(position);
         bullet.setDirection(upwardDirection);
-
-        EntityManager.entities.add(bullet);
+        
         return bullet;
     }
-
-
+    
     public static void removeEntity(Entity entity)
     {
         entities.remove(entity);
+    }
+    
+    public static ArrayList<EnemyShip> getEnemyShips()
+    {
+        ArrayList<EnemyShip> enemyShips = new ArrayList<EnemyShip>();
+        for(Entity entity : entities)
+        {
+            if(entity.getClass().isAssignableFrom(EnemyShip.class))
+            {
+                enemyShips.add((EnemyShip) entity);
+            }
+        }
+        
+        return enemyShips;
     }
 }
