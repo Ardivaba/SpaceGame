@@ -1,6 +1,7 @@
 package com.space.game.Entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Projectiles.Projectile;
@@ -16,6 +17,15 @@ public class BaseShip extends Entity
     protected Vector2 gunOffset = new Vector2(0, 0);
     protected boolean shootingDirection = false;
     
+    private Sound shipDestroyedSound;
+    
+    @Override
+    public void start()
+    {
+        super.start();
+        shipDestroyedSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/kill.ogg"));
+    }
+    
     @Override
     public void setTexture()
     {
@@ -27,6 +37,7 @@ public class BaseShip extends Entity
         Projectile bullet = EntityManager.spawnProjectile(position.add(this.gunOffset), this.shootingDirection);
     }
     
+    @Override
     public void collision(Entity otherEntity)
     {
         try
@@ -36,6 +47,7 @@ public class BaseShip extends Entity
             {
                 // Make it so that payers can't get damaged with their own bullets
                 // Note: Need to refactor this
+                // (Need to refactor everything into trashbin, lul)
                 if(!(bullet.direction && SpaceGame.playerShip == this))
                     this.damage(1f);
             }
@@ -45,5 +57,13 @@ public class BaseShip extends Entity
             // Not bullet...
             // Note: Should just use .class to instead of this try catch but out of time
         }
+    }
+    
+    public void destroy()
+    {
+        super.destroy();
+        
+        // Play notification sound on death
+        this.shipDestroyedSound.play();
     }
 }
