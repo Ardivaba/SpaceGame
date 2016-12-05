@@ -9,9 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.space.game.Entities.EntityManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpaceGame extends ApplicationAdapter
@@ -22,6 +23,8 @@ public class SpaceGame extends ApplicationAdapter
 
 	protected Box2DDebugRenderer physicsDebugRenderer;
 	public static World world;
+
+	private Stage stage;
 	
 	@Override
 	public void create ()
@@ -56,6 +59,7 @@ public class SpaceGame extends ApplicationAdapter
 		tempList.addAll(EntityManager.entities);
 		for(Entity entity : tempList)
 		{
+			entity.preUpdate();
 			entity.update(Gdx.graphics.getDeltaTime());
 		}
 
@@ -64,8 +68,12 @@ public class SpaceGame extends ApplicationAdapter
 			for(Entity otherEntity : tempList)
 			{
 				if(entity == otherEntity)
-					continue;;
-					
+					continue;
+				
+				if(entity.body.overlaps(otherEntity.body))
+				{
+					entity.collides(otherEntity);
+				}
 			}
 		}
 

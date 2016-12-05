@@ -10,6 +10,7 @@ import com.space.game.Entity;
 public class Bullet extends Entity
 {
     public float velocity = 500f;
+    public float damage = 0.01f;
     
     public void setDirection(boolean upwardVelocity)
     {

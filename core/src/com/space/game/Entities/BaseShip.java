@@ -25,4 +25,13 @@ public class BaseShip extends Entity
     {
         Bullet bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
     }
+    
+    public void collides(Entity otherEntity)
+    {
+        Bullet bullet = (Bullet) otherEntity;
+        if(bullet != null)
+        {
+            this.damage(bullet.damage);
+        }
+    }
 }

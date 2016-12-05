@@ -13,10 +13,17 @@ import java.util.List;
 public class EntityManager
 {
     public static List<Entity> entities;
+    public static List<Class> bulletTypes;
 
     static
     {
         entities = new ArrayList<Entity>();
+        bulletTypes = new ArrayList<Class>();
+    }
+    
+    private static void registerBulletTypes()
+    {
+        bulletTypes.add(Bullet.class);
     }
 
     public static BaseShip spawnBaseShip(Vector2 position)
@@ -36,7 +43,7 @@ public class EntityManager
         EntityManager.entities.add(ship);
         return ship;
     }
-    
+
     public static Bullet spawnBullet(Vector2 position, boolean upwardDirection)
     {
         Bullet bullet = new Bullet();
@@ -45,5 +52,11 @@ public class EntityManager
 
         EntityManager.entities.add(bullet);
         return bullet;
+    }
+
+
+    public static void removeEntity(Entity entity)
+    {
+        entities.remove(entity);
     }
 }
