@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Created by Kasutaja on 05.12.2016.
+ * Created by Ardi Vaba on 05.12.2016.
  */
 public class Entity extends Actor{
     protected Texture texture;
