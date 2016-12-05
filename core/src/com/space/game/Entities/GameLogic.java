@@ -35,7 +35,7 @@ public class GameLogic
         Random random = new Random();
 
         EnemyShip ship = new EnemyShip();
-        ship.init(new Vector2(random.nextFloat() * Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 2 ));
+        ship.init(new Vector2(-Gdx.graphics.getWidth() + (random.nextFloat() * Gdx.graphics.getWidth()), Gdx.graphics.getHeight() * 2 ));
         
         System.out.println("Spawning enemy ship...");
     }

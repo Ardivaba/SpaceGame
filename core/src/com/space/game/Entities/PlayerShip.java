@@ -12,6 +12,8 @@ import com.space.game.SpaceGame;
  */
 public class PlayerShip extends BaseShip 
 {
+    public float health = 3.0f;
+    
     protected float shipSpeed = 600f;
     protected Vector2 gunOffset = new Vector2(50, 75 / 2);
     protected boolean shootingDirection = true;
@@ -69,7 +71,15 @@ public class PlayerShip extends BaseShip
     
     private void validatePosition()
     {
-        if(position.x > Gdx.graphics.getWidth() + this.body.getWidth())
-            position.x = Gdx.graphics.getWidth() + this.body.getWidth();
+        if(position.x > SpaceGame.GAME_WIDTH)
+            position.x = SpaceGame.GAME_WIDTH;
+        if(position.x < -SpaceGame.GAME_WIDTH)
+            position.x = -SpaceGame.GAME_WIDTH;
+
+        if(position.y > Gdx.graphics.getHeight() - 10)
+            position.y = Gdx.graphics.getHeight() - 10;
+
+        if(position.y < -Gdx.graphics.getHeight() + 10)
+            position.y = -Gdx.graphics.getHeight() + 10;
     }
 }

@@ -79,8 +79,6 @@ public class Entity extends Actor{
     @Override
     public void draw (Batch batch, float parentAlpha) 
     {
-        System.out.println("Drawing shit....");
-        batch.draw(this.texture, position.x, position.y);
     }
 
     public void setTexture(){

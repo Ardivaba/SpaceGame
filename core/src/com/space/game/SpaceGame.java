@@ -2,12 +2,14 @@ package com.space.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,6 +31,8 @@ public class SpaceGame extends ApplicationAdapter
 	
 	PlayerShip playerShip;
 	GameLogic game;
+	
+	public static final int GAME_WIDTH = 800;
 	
 	public final int ZOOM = 60;
 	
@@ -63,7 +67,6 @@ public class SpaceGame extends ApplicationAdapter
 		float h = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera();
 		camera.zoom = ZOOM;
-		camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
 		camera.update();
 		
 	}
@@ -103,6 +106,13 @@ public class SpaceGame extends ApplicationAdapter
 		// End batch draw
 		batch.end();
 		batch.setProjectionMatrix(camera.combined);
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+		camera.position.set(camera.position.x - 1, Gdx.graphics.getHeight() / 2, 0);
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+			camera.position.set(camera.position.x + 1, Gdx.graphics.getHeight() / 2, 0);
+		
+		camera.position.x = MathUtils.lerp(camera.position.x, playerShip.position.x, deltaTime * 2.5f);
 	}
 	
 	private void checkCollisions(ArrayList<Entity> entities)
