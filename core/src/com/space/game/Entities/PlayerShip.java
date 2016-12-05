@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.space.game.Entity;
+import com.space.game.Entities.Projectiles.Projectile;
 import com.space.game.SpaceGame;
 
 /**
@@ -12,14 +12,14 @@ import com.space.game.SpaceGame;
  */
 public class PlayerShip extends BaseShip 
 {
-    protected float shipSpeed = 600f;
-    
-    protected Vector2 gunOffset = new Vector2(50, 75 / 2);
     protected boolean shootingDirection = true;
+    // Was player damaged this frame?
+    public boolean wasDamaged = false;
     
     public void start()
     {
         this.health = 3.0f;
+        this.shipSpeed = 900f;
     }
     
     @Override
@@ -33,7 +33,7 @@ public class PlayerShip extends BaseShip
     {
         float bulletPosX = this.position.x + this.texture.getWidth() / 2;
         float bulletPosY = this.position.y + this.texture.getHeight() / 2 + 50;
-        Bullet bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), true);
+        Projectile bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), true);
     }
     
     @Override
@@ -44,22 +44,22 @@ public class PlayerShip extends BaseShip
     
     private void handlePlayerInput(float deltaTime)
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.W))
+        if(Gdx.input.isKeyPressed(Input.Keys.UP))
         {
             position.y += shipSpeed * deltaTime;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.S))
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
         {
             position.y -= shipSpeed * deltaTime;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
         {
             position.x -= shipSpeed * deltaTime;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D))
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
         {
             position.x += shipSpeed * deltaTime;
         }
@@ -74,15 +74,22 @@ public class PlayerShip extends BaseShip
     
     private void validatePosition()
     {
-        if(position.x > SpaceGame.GAME_WIDTH)
-            position.x = SpaceGame.GAME_WIDTH;
-        if(position.x < -SpaceGame.GAME_WIDTH)
-            position.x = -SpaceGame.GAME_WIDTH;
-
+        if(position.x < -800)
+            position.x = -800;
+        
+        if(position.x > 800)
+            position.x = 800;
+        
         if(position.y > Gdx.graphics.getHeight() + this.body.getHeight() - 10)
             position.y = Gdx.graphics.getHeight() + this.body.getHeight() - 10;
 
         if(position.y < -Gdx.graphics.getHeight() - this.body.getHeight())
             position.y = -Gdx.graphics.getHeight() - this.body.getHeight();
+    }
+    
+    public void damage(float value)
+    {
+        super.damage(value);
+        this.wasDamaged = true;
     }
 }

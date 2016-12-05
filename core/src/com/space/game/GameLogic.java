@@ -1,9 +1,13 @@
-package com.space.game.Entities;
+package com.space.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.space.game.Entity;
+import com.space.game.Entities.Enemies.EnemyShip;
+import com.space.game.Entities.Enemies.FollowingEnemy;
+import com.space.game.Entities.Enemies.SimpleMovingEnemy;
+import com.space.game.Entities.EntityManager;
 import com.space.game.SpaceGame;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +38,7 @@ public class GameLogic
     {
         enemyList.add(EnemyShip.class);
         enemyList.add(SimpleMovingEnemy.class);
+        enemyList.add(FollowingEnemy.class);
     }
     
     public void update(float deltaTime)
@@ -44,7 +49,6 @@ public class GameLogic
         {
             spawnRandomEnemyShip();
             spawnTimer = maxSpawnTimer;
-            maxSpawnTimer -= 0.1f;
         }
         
         spawnTimer -= deltaTime;
@@ -53,6 +57,9 @@ public class GameLogic
         
         if(SpaceGame.gameStarted)
             score += deltaTime;
+        
+        if(maxSpawnTimer > 0.5f)
+            maxSpawnTimer -= deltaTime / 10.0f;
     }
     
     private void spawnRandomEnemyShip()
@@ -64,7 +71,7 @@ public class GameLogic
             EnemyShip ship = (EnemyShip) enemyList.get(random.nextInt(enemyList.size())).newInstance();
             
             float posX = -Gdx.graphics.getWidth() + (random.nextFloat() * Gdx.graphics.getWidth());
-            posX = -Gdx.graphics.getWidth() + (random.nextFloat() * Gdx.graphics.getWidth());
+            posX = -800 + random.nextInt(800 * 2);
             float posY = Gdx.graphics.getHeight() * 2;
             ship.init(new Vector2(posX, posY));
         }

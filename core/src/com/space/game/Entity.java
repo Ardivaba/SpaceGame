@@ -1,20 +1,15 @@
 package com.space.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.space.game.Entities.EnemyShip;
+import com.space.game.Entities.Enemies.EnemyShip;
 import com.space.game.Entities.EntityManager;
 
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Ardi Vaba on 05.12.2016.
@@ -80,7 +75,7 @@ public class Entity extends Actor{
         this.health -= value;
         if(this.health <= 0f)
         {
-            this.destroy();
+            this.destroy(); 
         }
     }
     

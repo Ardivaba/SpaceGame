@@ -3,48 +3,45 @@ package com.space.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.space.game.Entities.EnemyShip;
+import com.space.game.Entities.Enemies.EnemyShip;
 import com.space.game.Entities.EntityManager;
-import com.space.game.Entities.GameLogic;
 import com.space.game.Entities.PlayerShip;
 
 import java.util.ArrayList;
 
 public class SpaceGame extends ApplicationAdapter
 {
+	// Rendering variables
 	SpriteBatch batch;
-	
-	Texture playerHealthTexture;
 	SpriteBatch overlayBatch;
+	SpriteBatch backgroundBatch;
+	Texture backgroundTexture;
+	
+	// Overlay textures
+	Texture playerHealthTexture;
 	Texture img;
-	OrthographicCamera camera;
 
-	protected Box2DDebugRenderer physicsDebugRenderer;
-	public static World world;
-
+	// Menu overlay font variables
 	CharSequence str;
 	BitmapFont font;
-	public static boolean gameStarted = false;
-	
-	public static PlayerShip playerShip;
-	GameLogic game;
-	
-	public static final int GAME_WIDTH = 800;
-	
+
+	// Camera related variables
+	OrthographicCamera camera;
 	public final int ZOOM = 60;
 	
+	// Gameplay variables
+	GameLogic game;
+	public static PlayerShip playerShip;
+	public static boolean gameStarted = false;
 	boolean firstUpdate = true;
 	
 	@Override
@@ -53,12 +50,14 @@ public class SpaceGame extends ApplicationAdapter
 		createCamera();
 		createGame();
 		
-		// Set up
+		// Set up background variables
+		backgroundTexture = new Texture(Gdx.files.internal("bg.png"));
+		backgroundBatch = new SpriteBatch();
+		
+		// Set overlay variables
 		playerHealthTexture = new Texture(Gdx.files.internal("UI/playerLife1_blue.png"));
 		batch = new SpriteBatch();
 		overlayBatch = new SpriteBatch();
-		
-		// Menu
 		str = "Press [Enter] to start game";
 		font = new BitmapFont();
 
@@ -91,8 +90,17 @@ public class SpaceGame extends ApplicationAdapter
 	}
 	@Override
 	public void render ()
-	{		
+	{
+		// Draw background and start batch draw
+		Gdx.gl.glClearColor(0f, 0.f, 0f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		backgroundBatch.begin();
+		//backgroundBatch.draw(backgroundTexture, -400, 0);
+		backgroundBatch.end();
+		
 		batch.begin();
+		batch.draw(backgroundTexture, (-backgroundTexture.getWidth() * 4) / 2, (-backgroundTexture.getHeight() * 4) / 2, backgroundTexture.getWidth() * 4, backgroundTexture.getHeight() * 4);
 		
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
@@ -109,13 +117,7 @@ public class SpaceGame extends ApplicationAdapter
 			entity.update(deltaTime);
 		}
 
-		checkCollisions(tempList); 
-
-		// Draw background and start batch draw
-		Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-
+		checkCollisions(tempList);
 
 		// Draw all entities
 		for(Entity entity : EntityManager.entities)
@@ -126,14 +128,8 @@ public class SpaceGame extends ApplicationAdapter
 		// End batch draw
 		batch.end();
 		batch.setProjectionMatrix(camera.combined);
-
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-		camera.position.set(camera.position.x - 1, Gdx.graphics.getHeight() / 2, 0);
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			camera.position.set(camera.position.x + 1, Gdx.graphics.getHeight() / 2, 0);
 		
 		camera.position.x = MathUtils.lerp(camera.position.x, playerShip.position.x, deltaTime * 2.5f);
-
 		
 		overlayBatch.begin();
 

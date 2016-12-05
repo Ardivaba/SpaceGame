@@ -1,6 +1,10 @@
-package com.space.game.Entities;
+package com.space.game.Entities.Enemies;
 
 import com.badlogic.gdx.math.Vector2;
+import com.space.game.Entities.BaseShip;
+import com.space.game.Entities.Projectiles.Projectile;
+import com.space.game.Entities.EntityManager;
+import com.space.game.Entities.PlayerShip;
 import com.space.game.Entity;
 
 import java.util.Random;
@@ -29,7 +33,7 @@ public class EnemyShip extends BaseShip {
     {
         float bulletPosX = this.position.x + this.texture.getWidth() / 2;
         float bulletPosY = this.position.y + this.texture.getHeight() / 2 - 100;
-        Bullet bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), false);
+        Projectile bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), false);
     }
 
     public void collision(Entity otherEntity)

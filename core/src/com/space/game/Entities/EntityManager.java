@@ -1,8 +1,9 @@
 package com.space.game.Entities;
 
 import com.badlogic.gdx.math.Vector2;
+import com.space.game.Entities.Enemies.EnemyShip;
+import com.space.game.Entities.Projectiles.Projectile;
 import com.space.game.Entity;
-import com.space.game.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class EntityManager
     
     private static void registerBulletTypes()
     {
-        bulletTypes.add(Bullet.class);
+        bulletTypes.add(Projectile.class);
     }
 
     public static BaseShip spawnBaseShip(Vector2 position)
@@ -42,9 +43,9 @@ public class EntityManager
         return ship;
     }
 
-    public static Bullet spawnBullet(Vector2 position, boolean upwardDirection)
+    public static Projectile spawnBullet(Vector2 position, boolean upwardDirection)
     {
-        Bullet bullet = new Bullet();
+        Projectile bullet = new Projectile();
         bullet.init(position);
         bullet.setDirection(upwardDirection);
         

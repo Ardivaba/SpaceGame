@@ -1,4 +1,4 @@
-package com.space.game.Entities;
+package com.space.game.Entities.Projectiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -8,14 +8,14 @@ import com.space.game.Entity;
 /**
  * Created by Kasutaja on 05.12.2016.
  */
-public class Bullet extends Entity
+public class Projectile extends Entity
 {
     public float velocity = 700f;
     public float damage = 1f;
     
     protected Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/laser.wav"));
     
-    public Bullet()
+    public Projectile()
     {
         super();
         

@@ -1,10 +1,9 @@
 package com.space.game.Entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.space.game.Entities.Projectiles.Projectile;
 import com.space.game.Entity;
 
 /**
@@ -24,14 +23,14 @@ public class BaseShip extends Entity
     
     public void shoot()
     {
-        Bullet bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
+        Projectile bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
     }
     
     public void collision(Entity otherEntity)
     {
         try
         {
-            Bullet bullet = (Bullet) otherEntity;
+            Projectile bullet = (Projectile) otherEntity;
             if(bullet != null)
             {
                 this.damage(1f);

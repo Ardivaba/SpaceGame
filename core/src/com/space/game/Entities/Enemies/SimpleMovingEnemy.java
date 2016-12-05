@@ -1,8 +1,9 @@
-package com.space.game.Entities;
+package com.space.game.Entities.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
+import com.space.game.Entities.Enemies.EnemyShip;
 
 /**
  * Created by Kasutaja on 05.12.2016.
@@ -28,7 +29,6 @@ public class SimpleMovingEnemy extends EnemyShip
     {
         this.shipSpeed /= 2;
         pickNewMovementTarget();
-        System.out.println("STarted.");
     }
     
     public void pickNewMovementTarget()
