@@ -22,9 +22,8 @@ public class EntityManager
     public static BaseShip SpawnBaseShip(Vector2 position)
     {
         BaseShip ship = new BaseShip();
-
-        ship.createBody(position);
-
+        ship.init(position);
+        
         entities.add(ship);
 
         return ship;
