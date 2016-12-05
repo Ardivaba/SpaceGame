@@ -9,7 +9,10 @@ import com.space.game.Entity;
 /**
  * Created by Kasutaja on 05.12.2016.
  */
-public class BaseShip extends Entity {
+public class BaseShip extends Entity 
+{
+    protected float shipSpeed = 100f;
+    
     @Override
     public void setTexture()
     {

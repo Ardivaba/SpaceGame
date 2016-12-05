@@ -24,11 +24,14 @@ public class SpaceGame extends ApplicationAdapter
 	@Override
 	public void create ()
 	{
+		createCamera();
+		
 		// Set up
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
-		EntityManager.SpawnBaseShip(new Vector2(20, 20));
+		EntityManager.SpawnBaseShip(new Vector2(20, 500));
+		EntityManager.SpawnPlayerShip(new Vector2(100, 20));
 	}
 	
 	private void createCamera()
@@ -56,9 +59,20 @@ public class SpaceGame extends ApplicationAdapter
 		{
 			entity.render(batch);
 		}
+		
+		camera.zoom -= 0.1f;
+		camera.position.add(1.0f, 1.0f, 1.0f);
+		camera.update();
 
 		// End batch draw
 		batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		camera.viewportWidth = 30f;
+		camera.viewportHeight = 30f * height/width;
+		camera.update();
 	}
 	
 	@Override

@@ -28,4 +28,14 @@ public class EntityManager
 
         return ship;
     }
+    
+    public static PlayerShip SpawnPlayerShip(Vector2 position)
+    {
+        PlayerShip ship = new PlayerShip();
+        ship.init(position);
+
+        entities.add(ship);
+
+        return ship;
+    }
 }
