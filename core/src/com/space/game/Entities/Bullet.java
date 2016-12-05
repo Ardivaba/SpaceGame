@@ -11,7 +11,7 @@ import com.space.game.Entity;
 public class Bullet extends Entity
 {
     public float velocity = 700f;
-    public float damage = 2.5f;
+    public float damage = 1f;
     
     protected Sound sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/laser.wav"));
     
@@ -44,6 +44,9 @@ public class Bullet extends Entity
     @Override
     public void collision(Entity otherEntity)
     {
+        if(otherEntity.getClass() == this.getClass())
+            return;
+        
         this.destroy();
     }
 }

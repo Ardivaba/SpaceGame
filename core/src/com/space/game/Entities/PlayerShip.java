@@ -12,11 +12,15 @@ import com.space.game.SpaceGame;
  */
 public class PlayerShip extends BaseShip 
 {
-    public float health = 3.0f;
-    
     protected float shipSpeed = 600f;
+    
     protected Vector2 gunOffset = new Vector2(50, 75 / 2);
     protected boolean shootingDirection = true;
+    
+    public void start()
+    {
+        this.health = 3.0f;
+    }
     
     @Override
     public void setTexture()
@@ -36,7 +40,6 @@ public class PlayerShip extends BaseShip
     public void update(float deltaTime)
     {
         handlePlayerInput(deltaTime);
-        System.out.println(position.x + " " + position.y);
     }
     
     private void handlePlayerInput(float deltaTime)
@@ -76,10 +79,10 @@ public class PlayerShip extends BaseShip
         if(position.x < -SpaceGame.GAME_WIDTH)
             position.x = -SpaceGame.GAME_WIDTH;
 
-        if(position.y > Gdx.graphics.getHeight() - 10)
-            position.y = Gdx.graphics.getHeight() - 10;
+        if(position.y > Gdx.graphics.getHeight() + this.body.getHeight() - 10)
+            position.y = Gdx.graphics.getHeight() + this.body.getHeight() - 10;
 
-        if(position.y < -Gdx.graphics.getHeight() + 10)
-            position.y = -Gdx.graphics.getHeight() + 10;
+        if(position.y < -Gdx.graphics.getHeight() - this.body.getHeight())
+            position.y = -Gdx.graphics.getHeight() - this.body.getHeight();
     }
 }

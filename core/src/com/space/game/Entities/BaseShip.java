@@ -34,7 +34,7 @@ public class BaseShip extends Entity
             Bullet bullet = (Bullet) otherEntity;
             if(bullet != null)
             {
-                this.damage(bullet.damage);
+                this.damage(1f);
             }
         }
         catch (Exception e)

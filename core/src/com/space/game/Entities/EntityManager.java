@@ -69,4 +69,9 @@ public class EntityManager
         
         return enemyShips;
     }
+
+    public static void destroyAllEntities()
+    {
+        entities.clear();
+    }
 }

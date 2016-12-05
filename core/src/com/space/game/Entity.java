@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.space.game.Entities.EnemyShip;
 import com.space.game.Entities.EntityManager;
 
 import java.util.ArrayList;
@@ -40,12 +41,29 @@ public class Entity extends Actor{
         body.set(position.x, position.y, texture.getWidth(), texture.getHeight());
     }
     
+    private boolean started = false;
+    
+    public void start()
+    {
+        
+    }
+    
     public void preUpdate()
     {
+        if(!started)
+        {
+            this.start();
+            started = true;
+        }
         body.setPosition(position.x, position.y);
         
-        if(position.y < -Gdx.graphics.getHeight())
+        if(position.y < -Gdx.graphics.getHeight() - this.body.getHeight() * 4)
+        {
             this.destroy();
+            
+            if(this.getClass().isAssignableFrom(EnemyShip.class))
+                SpaceGame.playerShip.damage(1f);
+        }
     }
 
     public void update(float deltaTime) 
