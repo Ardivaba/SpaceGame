@@ -2,6 +2,7 @@ package com.space.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.space.game.Entities.Projectiles.Projectile;
@@ -14,12 +15,22 @@ public class PlayerShip extends BaseShip
 {
     protected boolean shootingDirection = true;
     // Was player damaged this frame?
-    public boolean wasDamaged = false;
+    public int indicateDamaged = 0;
+    
+    private Texture playerDamagedTexture;
+    private Texture originalTexture;
+    
+    Sound hitSound;
     
     public void start()
     {
         this.health = 3.0f;
         this.shipSpeed = 900f;
+        
+        playerDamagedTexture = new Texture(Gdx.files.internal("playerShip1_orange.png"));
+        originalTexture = texture;
+        
+        hitSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/hit.ogg"));
     }
     
     @Override
@@ -44,6 +55,16 @@ public class PlayerShip extends BaseShip
     
     private void handlePlayerInput(float deltaTime)
     {
+        // Restore original texture after being damaged
+        if(indicateDamaged <= 0)
+        {
+            this.texture = originalTexture;
+        }
+        else
+        {
+            this.indicateDamaged--;
+        }
+        
         if(Gdx.input.isKeyPressed(Input.Keys.UP))
         {
             position.y += shipSpeed * deltaTime;
@@ -90,6 +111,9 @@ public class PlayerShip extends BaseShip
     public void damage(float value)
     {
         super.damage(value);
-        this.wasDamaged = true;
+        // Indicate damaged for 10 frames
+        this.indicateDamaged = 5;
+        this.texture = playerDamagedTexture;
+        hitSound.play();
     }
 }

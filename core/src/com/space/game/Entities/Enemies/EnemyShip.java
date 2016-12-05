@@ -15,14 +15,14 @@ import java.util.Random;
 public class EnemyShip extends BaseShip {
     protected float shipSpeed = 300f;
     protected Random random = new Random();
+    private int timesShot = 1;
     
     @Override
     public void update(float deltaTime)
     {
         position.y -= this.shipSpeed * deltaTime;
         
-        float chance = random.nextFloat() * 160;
-        if(chance >  159)
+        if(random.nextInt(100 * this.timesShot) == 5)
         {
             this.shoot();
         }
@@ -31,6 +31,7 @@ public class EnemyShip extends BaseShip {
     @Override
     public void shoot()
     {
+        this.timesShot++;
         float bulletPosX = this.position.x + this.texture.getWidth() / 2;
         float bulletPosY = this.position.y + this.texture.getHeight() / 2 - 100;
         Projectile bullet = EntityManager.spawnBullet(new Vector2(bulletPosX, bulletPosY), false);
