@@ -19,23 +19,31 @@ public class EntityManager
         entities = new ArrayList<Entity>();
     }
 
-    public static BaseShip SpawnBaseShip(Vector2 position)
+    public static BaseShip spawnBaseShip(Vector2 position)
     {
         BaseShip ship = new BaseShip();
         ship.init(position);
-        
-        entities.add(ship);
 
+        EntityManager.entities.add(ship);
         return ship;
     }
     
-    public static PlayerShip SpawnPlayerShip(Vector2 position)
+    public static PlayerShip spawnPlayerShip(Vector2 position)
     {
         PlayerShip ship = new PlayerShip();
         ship.init(position);
 
-        entities.add(ship);
-
+        EntityManager.entities.add(ship);
         return ship;
+    }
+    
+    public static Bullet spawnBullet(Vector2 position, boolean upwardDirection)
+    {
+        Bullet bullet = new Bullet();
+        bullet.init(position);
+        bullet.setDirection(upwardDirection);
+
+        EntityManager.entities.add(bullet);
+        return bullet;
     }
 }

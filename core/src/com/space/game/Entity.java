@@ -8,8 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.space.game.Entities.EntityManager;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Kasutaja on 05.12.2016.
@@ -20,15 +22,21 @@ public class Entity {
 
     protected Texture texture;
     public Vector2 position;
-
+    
     public void init(Vector2 position) 
     {
+        ArrayList<Entity> list = new ArrayList<Entity>();
         this.position = position;
         setTexture();
     }
 
     public void update(float deltaTime) 
     {
+    }
+    
+    public void collides(Entity otherEntity)
+    {
+        
     }
 
     public void render(Batch batch) 

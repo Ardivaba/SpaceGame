@@ -12,10 +12,17 @@ import com.space.game.Entity;
 public class BaseShip extends Entity 
 {
     protected float shipSpeed = 100f;
+    protected Vector2 gunOffset = new Vector2(0, 0);
+    protected boolean shootingDirection = false;
     
     @Override
     public void setTexture()
     {
         this.texture = new Texture(Gdx.files.internal("Enemies/enemyBlack1.png"));
+    }
+    
+    public void shoot()
+    {
+        Bullet bullet = EntityManager.spawnBullet(position.add(this.gunOffset), this.shootingDirection);
     }
 }

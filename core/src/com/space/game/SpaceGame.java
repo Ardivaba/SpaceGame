@@ -2,7 +2,6 @@ package com.space.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.space.game.Entities.EntityManager;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class SpaceGame extends ApplicationAdapter
 {
@@ -30,8 +32,14 @@ public class SpaceGame extends ApplicationAdapter
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
-		EntityManager.SpawnBaseShip(new Vector2(20, 500));
-		EntityManager.SpawnPlayerShip(new Vector2(100, 20));
+		spawnActors();
+	}
+	
+	private void spawnActors()
+	{
+		EntityManager.spawnBaseShip(new Vector2(100, 300));
+		
+		EntityManager.spawnPlayerShip(new Vector2(0, 0));
 	}
 	
 	private void createCamera()
@@ -44,9 +52,21 @@ public class SpaceGame extends ApplicationAdapter
 	public void render ()
 	{
 		// Update entities
-		for(Entity entity : EntityManager.entities)
+		ArrayList<Entity> tempList = new ArrayList<Entity>();
+		tempList.addAll(EntityManager.entities);
+		for(Entity entity : tempList)
 		{
 			entity.update(Gdx.graphics.getDeltaTime());
+		}
+
+		for(Entity entity : tempList)
+		{
+			for(Entity otherEntity : tempList)
+			{
+				if(entity == otherEntity)
+					continue;;
+					
+			}
 		}
 
 		// Draw background and start batch draw
